@@ -41,8 +41,6 @@ NODE insert_rear(NODE last, int ele){
     return temp;
 }
 
-
-
 NODE delete_front(NODE last){
     NODE first;
     if(last==NULL){
