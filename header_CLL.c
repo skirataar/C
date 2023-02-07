@@ -82,12 +82,56 @@ void delete_rear(NODE head){
     free(cur);
 }
 
+int count_nodes(NODE head){
+    int count = 0;
+    NODE cur = head->link;
+    if(head == head->link){
+        return count;
+    }
+    while(cur != head){
+        count++;
+        cur = cur->link;
+    }
+    return count;
+}
+
+void insert_at_pos(NODE head, int ele, int pos){
+    NODE cur = head->link, temp = getnode();
+    int i = 1, n = count_nodes(head);
+    temp->info = ele;
+    if(pos < 1 || pos > n+1){
+        printf("Invalid position.");
+        return;
+    }
+    if(pos == 1){
+        insert_front(head, ele);
+        return;
+    }
+    while(i < pos-1 && cur != head){
+        cur = cur->link;
+        i++;
+    }
+    temp->link = cur->link;
+    cur->link = temp;
+}
+
+NODE search(NODE head, int ele){
+    NODE cur = head->link;
+    while(cur != head){
+        if(cur->info == ele)
+            return cur;
+        cur = cur->link;
+    }
+    return NULL;
+}
+
+
 void main(){
-    NODE head=getnode();
+    NODE head=getnode(),res;
     head->link=head;
-    int ele,ch;
+    int ele,ch,pos;
     while(1){
-        printf("\n1:Insert Front\n2:Insert Rear\n3:Delete Front\n4:Delete Rear\n5:Display\n");
+        printf("\n1:Insert Front\n2:Insert Rear\n3:Delete Front\n4:Delete Rear\n5:Display\n6:Count Nodes\n7:Insert At Specific position\n8:Search an element\n");
         scanf("%d",&ch);
         switch(ch){
             case 1: printf("Enter element: ");
@@ -104,6 +148,23 @@ void main(){
                     break;
             case 5: display(head);
                     break;
+            case 6: printf("Number of nodes is: %d",count_nodes(head));
+            	  break;
+           	case 7: printf("Enter position: ");
+			  scanf("%d", &pos);
+			  printf("Enter element: ");
+			  scanf("%d", &ele);
+			  insert_at_pos(head, ele, pos);
+			  break;
+		case 8: printf("Enter the element to be searched: ");
+			  scanf("%d", &ele);
+			  res = search(head, ele);
+			  if(res == NULL)
+    			  	printf("Element not found.");
+			  else
+    				printf("Element found.");
+    			  break;   
+                  
             default: exit(0);
 
         }
