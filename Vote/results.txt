@@ -1,0 +1,5 @@
+Candidate A: 1
+Candidate B: 1
+Candidate C: 1
+Candidate D: 0
+Candidate E: 0
